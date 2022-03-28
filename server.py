@@ -1,6 +1,5 @@
 #server.py
 import socket
-# pip install uncleengineer
 
 my_ip = '192.168.0.193'
 port = 7001
