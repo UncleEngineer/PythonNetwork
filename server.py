@@ -1,30 +1,28 @@
-#server.py
+# server.py
+
 import socket
 
-my_ip = '192.168.0.193'
-port = 7001
+serverip = '192.168.0.100'
+port = 9000
 
 while True:
-	try:
-		server = socket.socket()
-		server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR,1)
+    server = socket.socket()
+    server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR,1)
 
-		server.bind((my_ip,port))
-		server.listen(1)
+    server.bind((serverip,port))
+    server.listen(1)
+    print('waiting....')
 
-		print('Waiting for Client: ')
+    # ตอบรับการเชื่อมต่อ
+    client, addr = server.accept()
+    print(client, addr)
 
-		client, addr = server.accept()
-		print('Connect from: ',str(addr))
+    # รับค่า
+    data = client.recv(1024).decode('utf-8')
+    print('Data from client:',data)
 
-		data = client.recv(1024).decode('utf-8')
-		print('Message from Client: ', data)
-
-		# print("DATA TYPE: ",type(data))
-
-		print('Data:',data)
-		client.send('recieved data'.encode('utf-8'))
-		client.close()
-	except Exception as e:
-		print("ERROR: ",e )
-
+    # ตอบกลับ ต้อง encode
+    text_response = 'recieved'.encode('utf-8')
+    client.send(text_response)
+    # ปิดการเชื่อมต่อ
+    client.close()
