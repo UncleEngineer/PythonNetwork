@@ -5,7 +5,8 @@ from tkinter import simpledialog
 #################
 import socket
 import threading
-serverip = '192.168.0.100'
+#serverip = '192.168.0.100'
+serverip = '178.128.223.51'
 port = 9000
 
 #################
