@@ -24,8 +24,8 @@ def Runserver():
 
         # ดึงค่าเก่ามา
         oldtext = v_result.get()
-        newtext = oldtext + '\n'
-        v_result.set()
+        newtext = oldtext + '\n' + data
+        v_result.set(newtext)
 
         # ตอบกลับ ต้อง encode
         text_response = 'recieved'.encode('utf-8')
@@ -48,7 +48,7 @@ L.pack() #นำไปติดกับโปรแกรมหลัก
 
 v_result = StringVar() #ตัวแปรพิเศษใช้แสดงผลข้อความจาก client
 v_result.set('---------Result---------')
-R1 = Label(GUI, textvariable=v_result)
+R1 = Label(GUI, textvariable=v_result, justify=LEFT)
 R1.place(x=10,y=50)
 
 
