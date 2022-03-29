@@ -5,6 +5,8 @@ import threading
 serverip = '192.168.0.100'
 port = 9000
 
+codetext = {'HL':'Hello','SW':'Sawatdee','CF':'confirm'}
+
 def Runserver():
     while True:
         server = socket.socket()
@@ -23,9 +25,14 @@ def Runserver():
         print('Data from client:',data)
 
         # ดึงค่าเก่ามา
-        oldtext = v_result.get()
-        newtext = oldtext + '\n' + data
-        v_result.set(newtext)
+        if data in codetext:
+            oldtext = v_result.get()
+            newtext = oldtext + '\n' +  '{}:{}'.format(data.split('|')[0],codetext[data.split('|')[1]]) 
+            v_result.set(newtext)
+        else:
+            oldtext = v_result.get()
+            newtext = oldtext + '\n' + '{}:{}'.format(data.split('|')[0],data.split('|')[1])
+            v_result.set(newtext)
 
         # ตอบกลับ ต้อง encode
         text_response = 'recieved'.encode('utf-8')
